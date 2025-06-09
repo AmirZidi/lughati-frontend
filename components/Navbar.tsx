@@ -1,28 +1,32 @@
-'use client';
-
-import Link from 'next/link';
-import { useState, useEffect } from 'react';
+'use client'
+import Link from 'next/link'
+import { useTheme } from 'next-themes'
+import { useEffect, useState } from 'react'
 
 export function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10);
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => setMounted(true), [])
+  if (!mounted) return null
 
   return (
-    <header className={`sticky top-0 z-50 w-full transition ${scrolled ? 'bg-white/90 backdrop-blur border-b border-gray-200' : 'bg-white dark:bg-zinc-900'}`}>
-      <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-        <Link href="/" className="text-xl font-bold text-blue-600">🌍 Lughati</Link>
-        <nav className="hidden md:flex space-x-6 text-sm font-medium">
-          <Link href="/" className="hover:text-blue-500">Accueil</Link>
-          <Link href="/catalogue" className="hover:text-blue-500">Catalogue</Link>
-          <Link href="/instructeur" className="hover:text-blue-500">Instructeurs</Link>
-          <Link href="/login" className="hover:text-blue-500">Connexion</Link>
-        </nav>
+    <nav className="flex items-center justify-between px-6 py-4 border-b bg-white dark:bg-zinc-900">
+      <div className="text-xl font-bold text-blue-600">Lughati</div>
+      <div className="flex items-center gap-4 text-sm">
+        <Link href="/">Accueil</Link>
+        <Link href="/catalogue">Cours</Link>
+        <Link href="/login">Connexion</Link>
+        <Link href="/signup">Inscription</Link>
+        <select
+          value={theme}
+          onChange={(e) => setTheme(e.target.value)}
+          className="border rounded px-2 py-1 text-sm"
+        >
+          <option value="light">☀️ Clair</option>
+          <option value="dark">🌙 Sombre</option>
+          <option value="system">🖥 Système</option>
+        </select>
       </div>
-    </header>
-  );
+    </nav>
+  )
 }

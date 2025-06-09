@@ -1,21 +1,7 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Design système moderne */
 body {
-  @apply bg-white text-zinc-900 dark:bg-zinc-900 dark:text-white font-sans antialiased;
-}
-
-h1, h2, h3, h4 {
-  @apply font-bold text-zinc-800 dark:text-white;
-}
-
-a {
-  @apply text-blue-600 hover:underline;
-}
-
-.container {
-  @apply max-w-5xl mx-auto px-4;
+  @apply bg-white text-black dark:bg-zinc-900 dark:text-white transition-colors duration-300;
 }
